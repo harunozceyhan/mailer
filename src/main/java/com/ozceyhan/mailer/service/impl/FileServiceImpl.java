@@ -2,19 +2,21 @@ package com.ozceyhan.mailer.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.ozceyhan.mailer.service.interfc.FileService;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FileServiceImpl implements FileService {
 
-    public String getFileNameFromUrl(String url) {
-        return url.substring(url.lastIndexOf('/') + 1, url.length());
+    public String getFileNameFromUrl(String url) throws MalformedURLException {
+        return FilenameUtils.getName(new URL(url).getPath());
     }
 
     public FileSystemResource getInputStreamSourceOfUrl(String url) throws IOException {

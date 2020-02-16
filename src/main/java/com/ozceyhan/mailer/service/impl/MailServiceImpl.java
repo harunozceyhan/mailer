@@ -54,7 +54,6 @@ public class MailServiceImpl implements MailService {
 
     @Recover
     public void recover(Throwable t) {
-        t.printStackTrace();
         LOGGER.info("Error Class :: " + t.getClass().getName());
     }
 
