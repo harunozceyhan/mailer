@@ -1,5 +1,7 @@
 package com.ozceyhan.mailer.controller;
 
+import java.io.IOException;
+
 import javax.mail.MessagingException;
 
 import com.ozceyhan.mailer.model.Mail;
@@ -21,7 +23,7 @@ public class MailController {
     private MailService mailService;
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> sendMail(@RequestBody Mail mail) throws MessagingException {
+    public ResponseEntity<?> sendMail(@RequestBody Mail mail) throws MessagingException, IOException {
         mailService.sendMail(mail);
         return new ResponseEntity<>(HttpStatus.OK);
     }

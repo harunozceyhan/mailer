@@ -1,9 +1,12 @@
 package com.ozceyhan.mailer.service.impl;
 
+import java.io.IOException;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.ozceyhan.mailer.model.Mail;
+import com.ozceyhan.mailer.service.interfc.FileService;
 import com.ozceyhan.mailer.service.interfc.MailService;
 
 import org.slf4j.Logger;
@@ -25,23 +28,33 @@ public class MailServiceImpl implements MailService {
     @Autowired
     public JavaMailSender emailSender;
 
+    @Autowired
+    public FileService fileService;
+
     @Value("${spring.mail.username}")
     public String from;
 
-    @Retryable(value = {
-            MessagingException.class }, maxAttemptsExpression = "#{${spring.mail.max-attempts}}", backoff = @Backoff(delay = 5000))
-    public void sendMail(Mail mail) throws MessagingException {
+    @Retryable(value = { MessagingException.class,
+            IOException.class }, maxAttemptsExpression = "#{${spring.mail.max-attempts}}", backoff = @Backoff(delay = 5000))
+    public void sendMail(Mail mail) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setTo(mail.getTo());
         helper.setFrom(from);
         helper.setSubject(mail.getSubject());
         helper.setText(mail.getText());
+        if (mail.getAttachmentUri() != null) {
+            helper.addAttachment(fileService.getFileNameFromUrl(mail.getAttachmentUri()),
+                    fileService.getInputStreamSourceOfUrl(mail.getAttachmentUri()));
+        }
+
         emailSender.send(message);
+        fileService.deleteAttachmentFile(fileService.getFileNameFromUrl(mail.getAttachmentUri()));
     }
 
     @Recover
     public void recover(Throwable t) {
+        t.printStackTrace();
         LOGGER.info("Error Class :: " + t.getClass().getName());
     }
 
