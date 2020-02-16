@@ -1,12 +1,10 @@
 package com.ozceyhan.mailer.service.interfc;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-
 import org.springframework.core.io.FileSystemResource;
 
 public interface FileService {
-    String getFileNameFromUrl(String url) throws MalformedURLException;
+    String getFileNameFromUrl(String url);
 
     FileSystemResource getInputStreamSourceOfUrl(String url) throws IOException;
 

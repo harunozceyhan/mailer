@@ -6,11 +6,18 @@ spring:
         host: smtp-mail.outlook.com
         port: 587
         username: harunozceyhan@hotmail.com
-        password: <password>
-        max-attempts: 4
+        password: ibsvo2983ASD!
+        max-attempts: 4         # Custom Configuration
+        backoff-delay: 5000     # Custom Configuration
         properties:
             mail:
                 smtp:
                     auth: true
                     starttls:
                         enable: true
+    kafka:
+        bootstrap-servers: localhost:9092
+        topic: mail             # Custom Configuration
+        consumer:
+            auto-offset-reset: earliest
+            group-id: mail

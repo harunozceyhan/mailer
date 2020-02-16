@@ -15,13 +15,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileServiceImpl implements FileService {
 
-    public String getFileNameFromUrl(String url) throws MalformedURLException {
-        return FilenameUtils.getName(new URL(url).getPath());
+    public String getFileNameFromUrl(String url) {
+        try {
+            return FilenameUtils.getName(new URL(url).getPath());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public FileSystemResource getInputStreamSourceOfUrl(String url) throws IOException {
         File file = new File(getFileNameFromUrl(url));
-        FileUtils.copyURLToFile(new URL(url), file);
+        if (!file.exists()) {
+            FileUtils.copyURLToFile(new URL(url), file);
+        }
         return new FileSystemResource(file);
     }
 

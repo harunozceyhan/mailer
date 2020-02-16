@@ -1,12 +1,7 @@
 package com.ozceyhan.mailer.controller;
 
-import java.io.IOException;
-
-import javax.mail.MessagingException;
-
 import com.ozceyhan.mailer.model.Mail;
-import com.ozceyhan.mailer.service.interfc.MailService;
-
+import com.ozceyhan.mailer.producer.MailProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MailController {
 
     @Autowired
-    private MailService mailService;
+    private MailProducer mailProducer;
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> sendMail(@RequestBody Mail mail) throws MessagingException, IOException {
-        mailService.sendMail(mail);
+    public ResponseEntity<?> sendMail(@RequestBody Mail mail) {
+        mailProducer.sendMessage(mail);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
