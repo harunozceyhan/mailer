@@ -7,6 +7,7 @@ import com.ozceyhan.mailer.model.Mail;
 import com.ozceyhan.mailer.service.interfc.MailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,16 @@ public class MailServiceImpl implements MailService {
     @Autowired
     public JavaMailSender emailSender;
 
-    public void sendMail(Mail mail) {
-        MimeMessage message = emailSender.createMimeMessage();
+    @Value("${spring.mail.username}")
+    private String from;
 
-        MimeMessageHelper helper;
+    public void sendMail(Mail mail) {
+
         try {
-            helper = new MimeMessageHelper(message, true);
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(mail.getTo());
+            helper.setFrom(from);
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getText());
             emailSender.send(message);
