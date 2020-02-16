@@ -1,0 +1,16 @@
+server:
+    port: 8081
+
+spring:
+    mail:
+        host: smtp-mail.outlook.com
+        port: 587
+        username: harunozceyhan@hotmail.com
+        password: <password>
+        max-attempts: 4
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
