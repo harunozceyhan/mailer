@@ -80,6 +80,12 @@ public class KafkaIntegrationTest {
         container.stop();
     }
 
+    /**
+     * Test method for Embedded Kafka Producer & Consumer
+     * 
+     * @throws Exception
+     */
+
     @Test
     public void itShouldSendMail() throws Exception {
         Mail mail = new Mail("harunozceyhan@gmail.com", "Subject", "Content", "");

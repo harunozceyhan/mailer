@@ -7,6 +7,7 @@ Spring Boot Mail Service that sends mail using Apache Kafka Streaming Platform.
 -   Installation commands listed below runs applications in development mode.
 -   Application runs on port 8081.
 -   Apache Kafka is used to send large number of mails.
+-   Only one attachment allowed to send.
 
 ## Pre-Requisites
 
