@@ -28,6 +28,6 @@ public class MailProducer {
      */
     public void sendMessage(Mail mail) {
         logger.info("Producing mail: " + mail.toString());
-        this.kafkaTemplate.send(topic, mail);
+        kafkaTemplate.send(topic, mail);
     }
 }
