@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
@@ -24,8 +25,9 @@ public class MailController {
 
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     @Operation(description = "Sends Mail to Kafka Producer", responses = {
-            @ApiResponse(responseCode = "200", description = "Mail Sent to Kafka Producer") })
-    public ResponseEntity<?> sendMail(@Valid @RequestBody Mail mail) {
+            @ApiResponse(responseCode = "200", description = "Mail Sent to Kafka Producer"),
+            @ApiResponse(responseCode = "400", description = "Request Body is not well formed") })
+    public ResponseEntity<?> sendMail(@Parameter(description = "Mail json object") @Valid @RequestBody Mail mail) {
         mailProducer.sendMessage(mail);
         return new ResponseEntity<>(HttpStatus.OK);
     }
