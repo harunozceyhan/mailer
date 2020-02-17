@@ -18,9 +18,15 @@ public class MailConsumer {
     @Autowired
     MailService mailService;
 
+    /**
+     * Consumes mail object from kafka and sends object to mail service.
+     *
+     * @param mail Mail
+     */
+
     @KafkaListener(topics = "${spring.kafka.topic}", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(Mail mail) {
-        logger.info("Consuming mail template...");
+        logger.info("Consuming mail: " + mail.toString());
         mailService.sendMail(mail);
     }
 }

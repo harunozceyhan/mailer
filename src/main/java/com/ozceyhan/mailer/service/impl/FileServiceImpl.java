@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileServiceImpl implements FileService {
 
+    /**
+     * Get file name from given url using Apache commons.io library.
+     *
+     * @param url String
+     */
     public String getFileNameFromUrl(String url) {
         try {
             return FilenameUtils.getName(new URL(url).getPath());
@@ -24,6 +29,11 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * Download attachment file and create FileSystemResource Object from given url.
+     *
+     * @param url String
+     */
     public FileSystemResource getInputStreamSourceOfUrl(String url) throws IOException {
         File file = new File(getFileNameFromUrl(url));
         if (!file.exists()) {
@@ -32,6 +42,11 @@ public class FileServiceImpl implements FileService {
         return new FileSystemResource(file);
     }
 
+    /**
+     * Remove downloaded file if exists.
+     *
+     * @param fileName String
+     */
     public void deleteAttachmentFile(String fileName) {
         File file = new File(fileName);
         if (file.exists()) {

@@ -21,4 +21,9 @@ public class Mail {
     String text;
 
     String attachmentUri;
+
+    @Override
+    public String toString() {
+        return to + " - " + subject;
+    }
 }

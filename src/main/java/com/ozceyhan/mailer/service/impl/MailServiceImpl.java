@@ -35,6 +35,14 @@ public class MailServiceImpl implements MailService {
     @Value("${spring.mail.username}")
     public String from;
 
+    /**
+     * Create MimeMessage object from mail parameter object and send mail. Download
+     * file and add attachment if attachmentUri provided Retry with given number of
+     * attemps if mail exception thrown.
+     * 
+     * @param mail Mail
+     */
+
     @Async
     @Retryable(value = {
             Exception.class }, maxAttemptsExpression = "#{${spring.mail.max-attempts}}", backoff = @Backoff(delayExpression = "#{${spring.mail.backoff-delay}}"))
@@ -52,12 +60,15 @@ public class MailServiceImpl implements MailService {
                         fileService.getInputStreamSourceOfUrl(mail.getAttachmentUri()));
             }
         } catch (IOException ex) {
+            LOGGER.error("IOException has occured while downloading attachment file...", ex);
             ex.printStackTrace();
         } catch (MessagingException ex) {
+            LOGGER.error("Messaging Exception has occured while sending mail...", ex);
             ex.printStackTrace();
         }
 
         emailSender.send(message);
+        LOGGER.info("Mail sent successfully...");
 
         if (mail.getAttachmentUri() != null) {
             fileService.deleteAttachmentFile(fileService.getFileNameFromUrl(mail.getAttachmentUri()));
@@ -66,7 +77,7 @@ public class MailServiceImpl implements MailService {
 
     @Recover
     public void recover(Throwable t) {
-        LOGGER.info("Error Class :: " + t.getClass().getName());
+        LOGGER.error("Exception has occured while sending mail with given number of attempts...", t);
     }
 
 }

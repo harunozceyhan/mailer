@@ -21,8 +21,13 @@ public class MailProducer {
     @Autowired
     private KafkaTemplate<String, Mail> kafkaTemplate;
 
+    /**
+     * Produces mail object for kafka and sends object to Kafka instance.
+     *
+     * @param mail Mail
+     */
     public void sendMessage(Mail mail) {
-        logger.info("Producing mail template...");
+        logger.info("Producing mail: " + mail.toString());
         this.kafkaTemplate.send(topic, mail);
     }
 }
