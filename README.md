@@ -27,7 +27,9 @@ Spring Boot Mail Service that sends mail using Apache Kafka Streaming Platform.
 
 ## Example Send Mail Post Request
 
--   curl -X POST "http://localhost:8081/mail" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"to\":\"username@mail.com\",\"subject\":\"Example Subject\",\"text\":\"Example Content\"}"
+```bash
+curl -X POST "http://localhost:8081/mail" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"to\":\"username@mail.com\",\"subject\":\"Example Subject\",\"text\":\"Example Content\"}"
+```
 
 ## Technologies Used
 
