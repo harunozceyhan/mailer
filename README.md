@@ -10,9 +10,9 @@ Spring Boot Mail Service that sends mail using Apache Kafka Streaming Platform.
 
 ## Pre-Requisites
 
-> Minimum Java 8 required to run application.
-> Edit application.yml file in resources folder for sender mail config (spring.mail) and kafka connection (spring.kafka).
-> Mail send attempt count can be set via application.yml config file if operation fails.
+> -   Minimum Java 8 required to run application.
+> -   Edit application.yml file in resources folder for sender mail config (spring.mail) and kafka connection (spring.kafka).
+> -   Mail send attempt count can be set via application.yml config file if operation fails.
 
 ## Installation
 
