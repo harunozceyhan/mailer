@@ -31,13 +31,11 @@ Spring Boot Mail Service that sends mail using Apache Kafka Streaming Platform.
 
 ## Technologies Used
 
--   Dev
-
-    -   Java 8
-    -   Spring Boot 2.2.4
-    -   Spring Email
-    -   Lombok
-    -   Spring Retry
-    -   Apache Commons
-    -   Spring Kafka
-    -   Springdoc Open API
+-   Java 8
+-   Spring Boot 2.2.4
+-   Spring Email
+-   Lombok
+-   Spring Retry
+-   Apache Commons
+-   Spring Kafka
+-   Springdoc Open API
