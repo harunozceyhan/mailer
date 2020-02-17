@@ -13,9 +13,6 @@ import com.ozceyhan.mailer.controller.MailController;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author Vinoth.Gopu Test class for mail controller
- */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class MailControllerTest {
@@ -25,7 +22,7 @@ public class MailControllerTest {
 
     /**
      * Test method for
-     * {@link com.ozceyhan.mailer.controller.MailController#send(com.ozceyhan.mailer.model.Mail)}.
+     * {@link com.ozceyhan.mailer.controller.MailController#sendMail(com.ozceyhan.mailer.model.Mail)}.
      * 
      * @throws Exception
      */
