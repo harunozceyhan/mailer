@@ -55,7 +55,7 @@ public class MailServiceImpl implements MailService {
             helper.setFrom(from);
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getText());
-            if (mail.getAttachmentUri() != null) {
+            if (mail.getAttachmentUri() != null && !mail.getAttachmentUri().equals("")) {
                 helper.addAttachment(fileService.getFileNameFromUrl(mail.getAttachmentUri()),
                         fileService.getInputStreamSourceOfUrl(mail.getAttachmentUri()));
             }
@@ -70,7 +70,7 @@ public class MailServiceImpl implements MailService {
         emailSender.send(message);
         LOGGER.info("Mail sent successfully...");
 
-        if (mail.getAttachmentUri() != null) {
+        if (mail.getAttachmentUri() != null && !mail.getAttachmentUri().equals("")) {
             fileService.deleteAttachmentFile(fileService.getFileNameFromUrl(mail.getAttachmentUri()));
         }
     }
