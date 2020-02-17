@@ -1,12 +1,11 @@
 server:
     port: 8081
-
 spring:
     mail:
-        host: smtp-mail.outlook.com
-        port: 587
-        username: harunozceyhan@hotmail.com
-        password: ibsvo2983ASD!
+        host: <mail-smtp-host>
+        port:  587
+        username: <username>
+        password: <password>
         max-attempts: 4         # Custom Configuration
         backoff-delay: 5000     # Custom Configuration
         properties:
